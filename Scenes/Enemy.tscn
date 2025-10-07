@@ -5,7 +5,7 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7fd37"]
 
-[node name="Enemy" type="RigidBody3D" groups=["enemy"]]
+[node name="Enemy" type="CharacterBody3D" groups=["enemy"]]
 script = ExtResource("1_wovta")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -5,6 +5,8 @@ var healthbar
 @export var move_speed:float = 5
 @export var health: int = 3
 
+@export var enemies_killed: int = 0
+
 var move_inputs: Vector2
 
 func _ready() -> void:
@@ -26,6 +28,11 @@ func _physics_process(delta: float) -> void:
 	if move_inputs != Vector2.ZERO:
 		global_position += Vector3(move_inputs.x, 0.0, move_inputs.y)
 	velocity.y += get_gravity().y * delta
+	
+	if Input.get_action_strength("attack") >= 1:
+		print("ATTACK")
+		enemies_killed += 1
+	
 	return
 
 func read_move_inputs():
