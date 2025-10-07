@@ -74,8 +74,10 @@ _data = {
 &"life_change": SubResource("Animation_6t5aa")
 }
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="Node3D"]
 script = ExtResource("1_cvnsp")
+move_speed = null
+health = null
 
 [node name="RigidBody3D" type="CharacterBody3D" parent="." groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

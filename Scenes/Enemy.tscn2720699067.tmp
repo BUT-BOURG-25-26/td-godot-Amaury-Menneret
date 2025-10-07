@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://di1m25rv6yjnd"]
+
+[ext_resource type="Material" uid="uid://dsxwl0inoh36f" path="res://Materials/M_Enemy.tres" id="1_m1htj"]
+[ext_resource type="Script" uid="uid://61wuo24x2gyo" path="res://Scripts/enemy.gd" id="1_wovta"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7fd37"]
+
+[node name="Enemy" type="Node3D"]
+script = ExtResource("1_wovta")
+
+[node name="RigidBody3D" type="CharacterBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_7fd37")
+debug_color = Color(0, 0.538322, 0.964081, 0.42)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="RigidBody3D"]
+material = ExtResource("1_m1htj")
