@@ -1,0 +1,131 @@
+[gd_scene load_steps=12 format=3 uid="uid://dm6f2e680tf4q"]
+
+[ext_resource type="PackedScene" uid="uid://bw0dhumjpcqmi" path="res://Scenes/player.tscn" id="1_hpc76"]
+[ext_resource type="PackedScene" uid="uid://di1m25rv6yjnd" path="res://Scenes/enemy.tscn" id="2_tr2i4"]
+[ext_resource type="PackedScene" uid="uid://d1ceuge37ite" path="res://Scenes/vfx_impact.tscn" id="2_x6ack"]
+[ext_resource type="Script" uid="uid://0qqiobqv08re" path="res://Scripts/label.gd" id="3_iacmt"]
+[ext_resource type="PackedScene" uid="uid://dykkxvudkf6pu" path="res://Scenes/enemy_spawner.tscn" id="3_jv6wh"]
+[ext_resource type="Script" uid="uid://mgnktpgcnbja" path="res://Scripts/gameOverMenu.gd" id="6_6ev3c"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hpc76"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_tr2i4"]
+sky_material = SubResource("ProceduralSkyMaterial_hpc76")
+
+[sub_resource type="Environment" id="Environment_nhkr4"]
+background_mode = 2
+sky = SubResource("Sky_tr2i4")
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cihdc"]
+size = Vector2(20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tr2i4"]
+size = Vector3(20, 0, 20)
+
+[node name="MainScene" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.501511, -0.841947, 0.199028, 0, 0.23005, 0.973179, -0.865151, 0.48806, -0.115373, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nhkr4")
+
+[node name="Player" parent="." instance=ExtResource("1_hpc76")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.043, 1.36658, 3.70686)
+fx_scene = ExtResource("2_x6ack")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.4567, 0)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_cihdc")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_tr2i4")
+
+[node name="Enemy" parent="." instance=ExtResource("2_tr2i4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.051, 0.5, -2.434)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_jv6wh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.99197, 0)
+
+[node name="Ground2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.1806)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground2"]
+mesh = SubResource("PlaneMesh_cihdc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground2"]
+shape = SubResource("BoxShape3D_tr2i4")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.920947, 0.389687, 0, -0.389687, 0.920947, 0, 4.46512, 14.3911)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Camera3D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Camera3D/SubViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(512, 20)
+render_target_update_mode = 4
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOverMenu" type="Control" parent="CanvasLayer" groups=["game_over"]]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_6ev3c")
+
+[node name="Restart" type="Button" parent="CanvasLayer/GameOverMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 5.0
+offset_right = 250.0
+offset_bottom = 105.0
+grow_horizontal = 2
+text = "Restart"
+
+[node name="Exit" type="Button" parent="CanvasLayer/GameOverMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -248.0
+offset_top = -106.0
+offset_right = 252.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Quit"
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 134.0
+offset_bottom = 23.0
+text = "kill count :"
+script = ExtResource("3_iacmt")
+
+[connection signal="pressed" from="CanvasLayer/GameOverMenu/Restart" to="CanvasLayer/GameOverMenu" method="_on_restart_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOverMenu/Exit" to="CanvasLayer/GameOverMenu" method="_on_exit_pressed"]

@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://fd5c2anmank6"]
+
+[ext_resource type="Script" uid="uid://bpbi7wwaov1ab" path="res://Scripts/mainMenu.gd" id="1_28flt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_erv1k"]
+font_size = 50
+
+[sub_resource type="Theme" id="Theme_erv1k"]
+default_font_size = 50
+
+[sub_resource type="Theme" id="Theme_28flt"]
+default_font_size = 50
+
+[node name="MainMenu" type="CanvasLayer" groups=["main_menu"]]
+script = ExtResource("1_28flt")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -67.0
+offset_right = 67.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "MENU PRINCIPAL"
+label_settings = SubResource("LabelSettings_erv1k")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.5
+offset_top = -15.5
+offset_right = 23.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_erv1k")
+text = "PLAY
+"
+
+[node name="QuitButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_28flt")
+text = "QUIT"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

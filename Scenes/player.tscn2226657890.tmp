@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://gtney2ofwoov" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Material" uid="uid://b33q5gc7fqod0" path="res://Materials/M_Player.tres" id="1_v0iea"]
-[ext_resource type="Script" uid="uid://ctgjgv6de0fyo" path="res://Scripts/healthBar.gd" id="3_6t5aa"]
+[ext_resource type="Script" uid="uid://ctgjgv6de0fyo" path="res://Scripts/health_bar.gd" id="3_6t5aa"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v0iea"]
 
@@ -80,6 +80,7 @@ script = ExtResource("1_cvnsp")
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = ExtResource("1_v0iea")
+use_collision = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -100,8 +101,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_cvnsp")
 theme_override_styles/fill = SubResource("StyleBoxFlat_6t5aa")
-max_value = 10.0
-value = 10.0
+max_value = 3.0
+value = 3.0
 show_percentage = false
 script = ExtResource("3_6t5aa")
 
